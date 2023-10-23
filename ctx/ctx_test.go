@@ -2,14 +2,15 @@ package ctx
 
 import (
 	"encoding/binary"
+	"net"
+	"testing"
+
 	"github.com/ratel-online/client/model"
 	"github.com/ratel-online/core/consts"
 	"github.com/ratel-online/core/log"
 	"github.com/ratel-online/core/network"
 	"github.com/ratel-online/core/protocol"
 	"github.com/ratel-online/core/util/async"
-	"net"
-	"testing"
 )
 
 func TestContext_Connect(t *testing.T) {
@@ -59,7 +60,7 @@ func _singleTest(id int64) {
 	}
 	_ = ctx.conn.Accept(func(packet protocol.Packet, conn *network.Conn) {
 		data := string(packet.Body)
-		if data == consts.IS_START {
+		if data == consts.IsStart {
 			_ = conn.Write(protocol.Packet{
 				Body: []byte("2"),
 			})
